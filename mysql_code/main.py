@@ -1,6 +1,6 @@
 import logging
-from databaseManager import DatabaseManager
-from prepareData import DataPreparation
+from mysql_code.databaseManager import DatabaseManager
+from mysql_code.prepareData import DataPreparation
 from tabulate import tabulate
 
 

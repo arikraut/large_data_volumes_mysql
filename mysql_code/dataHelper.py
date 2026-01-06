@@ -100,7 +100,6 @@ class DataHelper:
                     date_time_str = f"{line[5]} {line[6]}"
                     date_time = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M:%S")
 
-                    # Append trackpoint tuple
                     trackpoints.append((activity_id, lat, lon, altitude, date_time))
             return trackpoints
 

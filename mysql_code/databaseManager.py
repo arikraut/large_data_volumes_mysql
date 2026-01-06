@@ -1,9 +1,9 @@
-from DbConnector import DbConnector
+from mysql_code.DbConnector import DbConnector
 from tabulate import tabulate
 from mysql.connector import IntegrityError
 import logging
 import os
-from dataHelper import DataHelper as dh
+from mysql_code.dataHelper import DataHelper as dh
 from datetime import datetime, timedelta
 from haversine import haversine, Unit
 
@@ -307,7 +307,7 @@ class DatabaseManager:
             return []
 
     ################################################################################
-    # The following methods are used to retrieve data from the database for Task2. #
+    # The following methods are used to retrieve data from the database for Task 2.#
     ################################################################################
 
     def get_counts(self):

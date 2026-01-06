@@ -7,23 +7,14 @@ class DbConnector:
     Connects to the MySQL server on the Ubuntu virtual machine.
     Connector needs HOST, DATABASE, USER and PASSWORD to connect,
     while PORT is optional and should be 3306.
-
-    Example:
-    HOST = "tdt4225-00.idi.ntnu.no" // Your server IP address/domain name
-    DATABASE = "testdb" // Database name, if you just want to connect to MySQL server, leave it empty
-    USER = "testuser" // This is the user you created and added privileges for
-    PASSWORD = "test123" // The password you set for said user
     """
 
     def __init__(
         self,
-        HOST="tdt4225-21.idi.ntnu.no",
-        DATABASE="geolife_db",
-        USER="admin",
         PASSWORD=os.environ.get("MYSQL_PASSWORD"),
-        # HOST="localhost",
-        # DATABASE="local",
-        # USER="root",
+        HOST="localhost",
+        DATABASE="local",
+        USER="root",
     ):
         try:
             self.db_connection = mysql.connect(
