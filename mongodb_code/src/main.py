@@ -1,21 +1,21 @@
 import logging
-from mongodb_code.databaseManager import DatabaseManager
-from mongodb_code.prepareData import DataPreparation
-from mongodb_code.queryExecutor import execute_queries_and_save_results
+from databaseManager import DatabaseManager
+from prepareData import DataPreparation
+from queryExecutor import execute_queries_and_save_results
 
 
 def main():
-    dataset_path = "dataset_sample/dataset/Data"
+    dataset_path = "dataset_sample/Data"
     clean_data = False
     insert_data = True
     do_query = True
 
     db_params = {
         "DATABASE": "exc3db",
-        "HOST": "localhost:27017",  # Use "localhost:27017" for local
+        "HOST": "localhost:27017",
         "USER": "local_host_user",
         "PASSWORD": "oppgave3",
-        "use_authentication": False,  # Set to False for local
+        "use_authentication": False,
     }
 
     logging.basicConfig(

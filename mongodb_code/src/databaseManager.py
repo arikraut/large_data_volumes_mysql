@@ -1,11 +1,11 @@
-from mongodb_code.DbConnector import DbConnector
+from DbConnector import DbConnector
 import logging
 import os
-from mongodb_code.dataHelper import DataHelper as dh
+from dataHelper import DataHelper as dh
 from pymongo.errors import BulkWriteError, DuplicateKeyError, CollectionInvalid
 from haversine import haversine, Unit
 from pymongo import ASCENDING
-from mongodb_code.mongo_schemas import user_schema, activity_schema, trackpoint_schema
+from schemas import user_schema, activity_schema, trackpoint_schema
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -343,24 +343,20 @@ class DatabaseManager:
             float: The average number of activities per user. Returns 0.0 if an error occurs.
         """
         try:
-            # Step 1: Group by 'user_id' and count activities per user
-            # Step 2: Calculate the average activity count from the grouped results
+            # Group by 'user_id' and count activities per user
+            # Calculate the average activity count from the grouped results
             pipeline = [
-                {
-                    "$group": {"_id": "$user_id", "activity_count": {"$sum": 1}}
-                },  # Counts activities per user
+                {"$group": {"_id": "$user_id", "activity_count": {"$sum": 1}}},
                 {
                     "$group": {
                         "_id": None,
                         "avg_activities_per_user": {"$avg": "$activity_count"},
                     }
-                },  # Averages activity counts across users
+                },
             ]
 
-            # Execute the aggregation pipeline
             result = list(self.activity_collection.aggregate(pipeline))
 
-            # Extract the average from the result
             avg_activities = result[0]["avg_activities_per_user"] if result else 0.0
             logging.info(f"Average activities per user: {avg_activities}")
 
@@ -385,19 +381,14 @@ class DatabaseManager:
         try:
             # Aggregation pipeline to find the top users by activity count
             pipeline = [
-                {
-                    "$group": {"_id": "$user_id", "activity_count": {"$sum": 1}}
-                },  # Group by user_id and count activities
-                {
-                    "$sort": {"activity_count": -1}
-                },  # Sort by activity count in descending order
-                {"$limit": top_n},  # Limit the results to top_n users
+                {"$group": {"_id": "$user_id", "activity_count": {"$sum": 1}}},
+                {"$sort": {"activity_count": -1}},
+                {"$limit": top_n},
             ]
 
             # Execute the aggregation pipeline
             results = list(self.activity_collection.aggregate(pipeline))
 
-            # Format the results as a list of dictionaries
             top_users = [
                 {"user_id": result["_id"], "activity_count": result["activity_count"]}
                 for result in results
@@ -450,18 +441,14 @@ class DatabaseManager:
         try:
             # Aggregation pipeline to group by transportation mode and count occurrences
             pipeline = [
-                {
-                    "$match": {"transportation_mode": {"$exists": True}}
-                },  # Exclude documents with 'NULL' or None transportation modes
+                {"$match": {"transportation_mode": {"$exists": True}}},
                 {
                     "$group": {
                         "_id": "$transportation_mode",
                         "activity_count": {"$sum": 1},
                     }
                 },
-                {
-                    "$sort": {"activity_count": -1}
-                },  # Sort modes by activity count in descending order
+                {"$sort": {"activity_count": -1}},
             ]
 
             results = list(self.activity_collection.aggregate(pipeline))
@@ -547,10 +534,8 @@ class DatabaseManager:
                         "total_hours": {"$sum": "$duration_hours"},
                     }
                 },  # Sum hours per year
-                {
-                    "$sort": {"total_hours": -1}
-                },  # Sort by total hours in descending order
-                {"$limit": 1},  # Limit to the top year with the most hours
+                {"$sort": {"total_hours": -1}},
+                {"$limit": 1},
             ]
 
             result = list(self.activity_collection.aggregate(pipeline))
@@ -798,16 +783,16 @@ class DatabaseManager:
                         "_id": {"user_id": "$user_id", "mode": "$transportation_mode"},
                         "count": {"$sum": 1},
                     }
-                },  # Count occurrences of each transportation mode per user
-                {"$sort": {"count": -1}},  # Sort by count in descending order
+                },
+                {"$sort": {"count": -1}},
                 {
                     "$group": {
                         "_id": "$_id.user_id",
                         "most_used_transportation_mode": {"$first": "$_id.mode"},
                         "mode_count": {"$first": "$count"},
                     }
-                },  # Group by user and select the top mode based on count
-                {"$sort": {"_id": 1}},  # Sort by user_id for easier reading
+                },
+                {"$sort": {"_id": 1}},
             ]
 
             results = list(self.activity_collection.aggregate(pipeline))

@@ -1,9 +1,9 @@
-from mysql_code.DbConnector import DbConnector
+from DbConnector import DbConnector
 from tabulate import tabulate
 from mysql.connector import IntegrityError
 import logging
 import os
-from mysql_code.dataHelper import DataHelper as dh
+from dataHelper import DataHelper as dh
 from datetime import datetime, timedelta
 from haversine import haversine, Unit
 

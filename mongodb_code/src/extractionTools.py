@@ -49,7 +49,6 @@ def countActivities(directory):
             else:
                 user_file_counts[user] = count_of_files
 
-    # Find the user with the most .plt files
     max_user = None
     max_count = 0
     for user, count in user_file_counts.items():
@@ -58,14 +57,3 @@ def countActivities(directory):
             max_count = count
 
     return max_user, max_count
-
-
-# Example usage
-directory = "datasets/valid_dataset/Data"
-print(countActivities(directory))
-"""""
-The largest file in datasets/valid_dataset/Data is: datasets/valid_dataset/Data\153\Trajectory\20111003091622.plt
-The amount of lines is:
-2455
-('Data\\128\\Trajectory', 2102)
-""" ""

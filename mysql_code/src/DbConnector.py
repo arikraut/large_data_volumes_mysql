@@ -11,10 +11,10 @@ class DbConnector:
 
     def __init__(
         self,
-        PASSWORD=os.environ.get("MYSQL_PASSWORD"),
+        PASSWORD="oppgave2",
         HOST="localhost",
-        DATABASE="local",
-        USER="root",
+        DATABASE="exc2db",
+        USER="local_host_user",
     ):
         try:
             self.db_connection = mysql.connect(

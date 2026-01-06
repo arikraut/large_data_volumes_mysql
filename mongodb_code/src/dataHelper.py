@@ -110,7 +110,6 @@ class DataHelper:
         """
 
         user_id, has_labels = user
-        # Retrieve label lookup if the user has labeled data
         label_lookup = (
             DataHelper.build_label_lookup(dataset_path, user_id) if has_labels else {}
         )
@@ -128,7 +127,6 @@ class DataHelper:
 
             transportation_mode = label_lookup.get((start_time, end_time), None)
 
-            # Build the activity document, conditionally including transportation_mode
             activity_doc = {
                 "user_id": user_id,
                 "start_date_time": start_time,

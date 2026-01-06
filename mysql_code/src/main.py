@@ -1,11 +1,11 @@
 import logging
-from mysql_code.databaseManager import DatabaseManager
-from mysql_code.prepareData import DataPreparation
+from databaseManager import DatabaseManager
+from prepareData import DataPreparation
 from tabulate import tabulate
 
 
 def main():
-    dataset_path = "datasets/valid_dataset/Data"
+    dataset_path = "dataset_sample/Data"
     insert_data = True
     do_query = True
 

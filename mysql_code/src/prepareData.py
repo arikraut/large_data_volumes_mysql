@@ -40,9 +40,7 @@ class DataPreparation:
         )
 
     @staticmethod
-    def prepare_users(
-        datapath, labeled_ids_path="datasets/valid_dataset/labeled_ids.txt"
-    ):
+    def prepare_users(datapath, labeled_ids_path="./dataset_sample/labeled_ids.txt"):
         """
         Prepares the users from the dataset by loading user IDs and labeled IDs.
 

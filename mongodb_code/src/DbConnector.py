@@ -23,7 +23,6 @@ class DbConnector:
                 f"mongodb://{HOST}/{DATABASE}"  # Use simpler URI for local connections
             )
 
-        # Connect to the database
         try:
             self.client = MongoClient(uri)
             self.db = self.client[DATABASE]
@@ -33,7 +32,6 @@ class DbConnector:
             print("ERROR: Failed to connect to db:", e)
 
     def close_connection(self):
-        # Close the database connection
         self.client.close()
         print("\n-----------------------------------------------")
         print("Connection to %s-db is closed" % self.db.name)
