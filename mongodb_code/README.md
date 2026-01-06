@@ -14,8 +14,6 @@ The code in this folder implements an end-to-end pipeline: dataset cleaning → 
 
 The implementation targets the **GeoLife GPS trajectory** format (`.plt` files with trackpoints) and optional `labels.txt` files for transportation-mode annotations (available only for a subset of users).
 
-Expected directory structure (mirrors the dataset layout used in the course):
-
 ```
 Data/
   000/

@@ -1,4 +1,4 @@
-# Database Systems Coursework Portfolio (MySQL + MongoDB)
+# TDT4225 Projects — Geolife GPS Trajectory dataset with MongoDB and MySQL
 
 ## Overview
 
@@ -68,7 +68,7 @@ The two subprojects intentionally solve the same style of tasks in different dat
 
 ---
 
-## Future improvements (portfolio hardening)
+## Future improvements
 
 If I were to extend this repository beyond coursework, the highest-impact additions would be:
 
