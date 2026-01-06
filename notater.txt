@@ -1,0 +1,44 @@
+Snakke om:
+
+Data preprocessing valgene vi har gjort:
+    Slette alt over 2500
+    Sjekk av neg alt
+
+Bruken av debug file:
+    Hvilke error/warning/info vi har med
+
+Kodestruktur:
+    prepareData
+    databaseManager
+    dataHelper
+    dbConnector
+    main
+
+Jobbe på kopi av datasetet (valid_dataset)
+
+Valg av type insert:
+    inviduell insert pr user og activities
+    bulk insert med fallback til inviduell på Trackpoints
+
+Antagelser gjort:
+    Vi skal ta med activities for labled users selv når ingen match
+    Lavere verdi enn -505 gir ikke mening og blir satt til -777
+    At det er meningen at vi skal inserte user, deretter activities, og til slutt Trackpoints, og ikke i en "go"
+
+
+Valg av PK:
+    valgt incrementell PK, istedenfor feks filnavn. Gjør at mer kode trengs, 
+        men tjener på det i lengden grunnet str vs int for PK
+
+ErrorHandling for robusthet:
+    spesielt håndtering av Duplicate keys og error under bulk.
+    Gjør at man kan kjøre koden flere ganger uten at det påvirker databasen
+    Feil under insert medfører rollback for data integritet
+
+
+Potensielle forbedring (burde være med i diskusjon):
+    Sjekke duplicate Trackpoints under datarydding. Ser man i loggen, så er det mange duplicates som medfører at databasen
+        kjører inviduell insert fremfor bulk grunnet fallback funksjonalitet.
+    Ekstra datarens av Trackpoints, mtp tidsrom mellom dem og fornuftige verdier.
+        For eksempel så ser vi i resultater.txt at bruker 128 er den som har mest Altitude gain, men også den med flest
+            invalid activities når man ikke tar med de med tidsrom på over 5min mellom trackpoints
